@@ -3,7 +3,7 @@
 
 ; defaults for all ships are their last blocks
 ; every ship but Fodra requires 1 less down input(don't ask me why)
-GLOBAL FODRA_DEFAULT_BLOCK := 3 
+GLOBAL FODRA_DEFAULT_BLOCK    := 3 
 GLOBAL AULDRANT_DEFAULT_BLOCK := 4
 GLOBAL LUMIREIS_DEFAULT_BLOCK := 3
 GLOBAL DEVALOKA_DEFAULT_BLOCK := 1
