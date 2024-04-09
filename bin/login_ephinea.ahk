@@ -1,6 +1,7 @@
 #NoEnv
 #Persistent
 #SingleInstance force
+#include %A_ScriptDir%\commands.ahk
 
 GLOBAL US_FODRA            := 0
 GLOBAL JP_AULDRANT         := 1
@@ -16,15 +17,6 @@ AccountLogin() {
 
 SelectChar() {
     Send {Enter}
-    Send {Enter}
-}
-
-SelectShipAndBlock(ship, block) {
-    block := block - 1
-
-    Send {Down %ship%}
-    Send {Enter}
-    Send {Down %block%}
     Send {Enter}
 }
 
