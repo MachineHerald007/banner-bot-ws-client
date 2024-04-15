@@ -1,0 +1,1 @@
+Everything contained in "http" dir needs to be compiled into an executable. Then placed into Ephinea's base dir.
