@@ -9,6 +9,7 @@ GLOBAL EU_LUMIREIS         := 2
 GLOBAL US_DEVALOKA         := 3
 GLOBAL COMMAND             := % A_Args.1
 GLOBAL VALUE               := % A_Args.2
+GLOBAL MOVE_TO_PORTER      := A_ScriptDir "\move_to_porter.ahk"
 GLOBAL AVOID_AFK_DETECTION := A_ScriptDir "\avoid_afk_detection.exe"
 
 SetKeyDelay, 1000, 100
@@ -35,8 +36,7 @@ SWITCH COMMAND {
                         Send {Enter}
                         ChangeBlock(VALUE)
     CASE "change_lobby":
-                        ChangeLobby(VALUE)
+                        Run %MOVE_TO_PORTER% %VALUE%
 }
-
 Run %AVOID_AFK_DETECTION%
 ExitApp

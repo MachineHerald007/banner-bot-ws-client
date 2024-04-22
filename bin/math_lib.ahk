@@ -30,14 +30,14 @@ IsInRange(value, minRange, maxRange) {
     return (value >= minRange && value <= maxRange)
 }
 
-Distance(x_1, y_1, z_1, x_2, y_2, z_2) {
-    return Sqrt((x_2 - x_1) ** 2 + (y_2 - y_1) ** 2 + (z_2 - z_1) ** 2)
+Distance(x1, y1, z1, x2, y2, z2) {
+    return Sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2)
 }
 
-Direction(x_1, y_1, z_1, x_2, y_2, z_2) {
-    dx := x_2 - x_1
-    dy := y_2 - y_1
-    dz := z_2 - z_1
+Direction(x1, y1, z1, x2, y2, z2) {
+    dx := x2 - x1
+    dy := y2 - y1
+    dz := z2 - z1
     
     angle_xy := ATan2(dy, dx)
     angle_xz := ATan2(dz, Sqrt(dx ** 2 + dy ** 2))

@@ -1,81 +1,82 @@
 #NoEnv
 #Persistent
 #SingleInstance force
+#include %A_ScriptDir%\math_lib.ahk
 
 UP(x, y, z) {
-    cache_coords(x, y, z)
+    CacheCoords(x, y, z)
     SendEvent {w down}
-    Sleep 300
+    Sleep 50
     SendEvent {w up}
-    PREV_KEY := "w"
+    PREV_MOVEMENT_KEY := "w"
 }
 
 LEFT(x, y, z) {
-    cache_coords(x, y, z)
+    CacheCoords(x, y, z)
     SendEvent {a down}
-    Sleep 1000
+    Sleep 50
     SendEvent {a up}
-    PREV_KEY := "a"
+    PREV_MOVEMENT_KEY := "a"
 }
 
 DOWN(x, y, z) {
-    cache_coords(x, y, z)
+    CacheCoords(x, y, z)
     SendEvent {s down}
-    Sleep 100
+    Sleep 50
     SendEvent {s up}
-    PREV_KEY := "s"
+    PREV_MOVEMENT_KEY := "s"
 }
 
 RIGHT(x, y, z) {
-    cache_coords(x, y, z)
+    CacheCoords(x, y, z)
     SendEvent {d down}
-    Sleep 1000
+    Sleep 50
     SendEvent {d up}
-    PREV_KEY := "d"
+    PREV_MOVEMENT_KEY := "d"
 }
 
 UP_AND_RIGHT(x, y, z) {
-    cache_coords(x, y, z)
+    CacheCoords(x, y, z)
     SendEvent {w down}
     SendEvent {d down}
-    Sleep 300
+    Sleep 50
     SendEvent {w up}
     SendEvent {d up}
-    PREV_KEY := "wd"
+    PREV_MOVEMENT_KEY := "wd"
 }
 
 UP_AND_LEFT(x, y, z) {
-    cache_coords(x, y, z)
+    CacheCoords(x, y, z)
     SendEvent {w down}
     SendEvent {a down}
-    Sleep 300
+    Sleep 50
     SendEvent {w up}
     SendEvent {a up}
-    PREV_KEY := "wa"
+    PREV_MOVEMENT_KEY := "wa"
 }
 
 
 DOWN_AND_RIGHT(x, y, z) {
-    cache_coords(x, y, z)
+    CacheCoords(x, y, z)
     SendEvent {s down}
     SendEvent {d down}
-    Sleep 100
+    Sleep 50
     SendEvent {s up}
     SendEvent {d down}
-    PREV_KEY := "sd"
+    PREV_MOVEMENT_KEY := "sd"
 }
 
 DOWN_AND_LEFT(x, y, z) {
-    cache_coords(x, y, z)
+    CacheCoords(x, y, z)
     SendEvent {s down}
     SendEvent {a down}
-    Sleep 100
+    Sleep 50
     SendEvent {s up}
     SendEvent {a down}
-    PREV_KEY := "sa"
+    PREV_MOVEMENT_KEY := "sa"
 }
 
-position_camera() {
+PositionCamera() {
     SendEvent {Up down}
     Sleep 500
     SendEvent {Up up}
@@ -85,74 +86,83 @@ position_camera() {
     SendEvent {Up up}
 }
 
-face_right() {
+FaceRight() {
     SendEvent {d down}
-    Sleep 100
+    Sleep 250
     SendEvent {d up}
+    PREV_MOVEMENT_KEY := "d"
 }
 
-face_left() {
+FaceLeft() {
     SendEvent {a down}
-    Sleep 100
+    Sleep 250
     SendEvent {a up}
+    PREV_MOVEMENT_KEY := "a"
 }
 
-x_context(x) {
-
-}
-
-z_context(z) {
-
-}
-
-coords_check(x, y, z) {
-    if (x ) {
-
-    }
-}
-
-cache_coords(x, y, z) {
+CacheCoords(x, y, z) {
     COORDS_CACHE[1] := x
     COORDS_CACHE[2] := y
     COORDS_CACHE[3] := z
 }
 
-handle_spawn(x, y, z) {
-    if (x == 0 && y == 20 && z == 135) {
+MoveToPorter(x, y, z) {
+    PORTER_DISTANCE       := Distance(x, y, z, PORTER_COORD[1], PORTER_COORD[2], PORTER_COORD[3])
+    NORMAL_SPAWN_DISTANCE := Distance(x, y, z, P_SPAWN_COORD[1], P_SPAWN_COORD[2], P_SPAWN_COORD[3])
+    RIGHT_SPAWN_DISTANCE  := Distance(x, y, z, R_SPAWN_COORD[1], R_SPAWN_COORD[2], R_SPAWN_COORD[3])
+    LEFT_SPAWN_DISTANCE   := Distance(x, y, z, L_SPAWN_COORD[1], L_SPAWN_COORD[2], L_SPAWN_COORD[3])
+
+    if (IsInRange(PORTER_DISTANCE, 2.5, 11)) {
+        IN_LOBBY_PORTER := TRUE
+        return
+    }
+
+    if (IsInRange(NORMAL_SPAWN_DISTANCE, 0, 50) && POS_TYPE == "") {
+        POS_TYPE := "to_porter"
         DOWN(x, y, z)
-        position_camera()
+        PositionCamera()
+        SendEvent {a down}
+        Sleep 30
+        SendEvent {a up}
+        PositionCamera()
     }
 
-    if ((x > X_MIN_MAX[1] && x < X_MIN_MAX[2]) && y != 3) {
-        UP(x, y, z)
+    if (IsInRange(RIGHT_SPAWN_DISTANCE, 0, 50) && POS_TYPE == "") {
+        POS_TYPE := "r_spawn"
     }
-}
 
-move_to_porter(x, y, z) {
-    if ((x > X_MIN_MAX[1] && x < X_MIN_MAX[2]) && y != 3) {
-        UP(x, y, z)
+    if (IsInRange(LEFT_SPAWN_DISTANCE, 0, 50) && POS_TYPE == "") {
+        POS_TYPE := "l_spawn"
     }
-}
 
-handle_porter(x, y, z) {
-    if ((x > X_MIN_MAX[1] && x < X_MIN_MAX[2])) {
-        if (z < Z_MIN_MAX[1]) {
-            UP(z, y, z)
-        }
-        if (z > Z_MIN_MAX[2]) {
-            DOWN(z, y, z)
-        }
-        if (z > Z_MIN_MAX[1] && z < Z_MIN_MAX[2]) {
-            ExitApp
-        }
-    }
-}
-
-handle_floor_context(x, y, z) {
-    SWITCH y {
-        CASE 0:
-        CASE 3: handle_porter(x, y, z)
-        CASE 20: handle_spawn(x, y, z)
-        DEFAULT: move_to_porter(x, y, z)
+    SWITCH POS_TYPE {
+        CASE "r_spawn":
+                        if (PORTER_DISTANCE > 215) {
+                            UP_AND_LEFT(x, y, z)
+                        } else if (x > 3) {
+                            UP(x, y, z)
+                        } else {
+                            POS_TYPE := "to_porter"
+                            FaceLeft()
+                            PositionCamera()
+                        }
+        CASE "l_spawn":
+                        if (PORTER_DISTANCE > 215) {
+                            UP_AND_RIGHT(x, y, z)
+                        } else if (x < -6) {
+                            UP(x, y, z)
+                        } else {
+                            POS_TYPE := "to_porter"
+                            FaceRight()
+                            PositionCamera()
+                        }
+        case "to_porter":
+                        if ((x > X_MIN_MAX[1] && x < X_MIN_MAX[2]) && PORTER_DISTANCE > 10) {
+                            UP(x, y, z)
+                        } else if (x < X_MIN_MAX[1]) {
+                            LEFT(x, y, z)
+                        } else if (x > X_MIN_MAX[2]) {
+                            RIGHT(x, y, z)
+                        }
     }
 }

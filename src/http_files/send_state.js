@@ -1,13 +1,13 @@
 require('dotenv').config()
 const axios = require("axios")
 
-function post_message() {
+function post_message(bot_state) {
     return axios({
         url: process.env.BANNER_BOT_WORKER_ENDPOINT,
         method: "POST",
         data: JSON.stringify({
             messages: [{
-                msg: process.argv[2]
+                msg: bot_state
             }]
         }),
         headers: {
@@ -17,6 +17,6 @@ function post_message() {
     })
 }
 
-post_message()
+post_message(process.argv[2])
 .then(res => console.log(res.data))
 .catch(err => console.log(err))

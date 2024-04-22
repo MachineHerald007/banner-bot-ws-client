@@ -50,7 +50,9 @@ ChangeBlock(block) {
 }
 
 ChangeLobby(lobby_number) {
-
+    SetKeyDelay, 100, 100
+    Send {Down %lobby_number%}
+    Send {Enter}
 }
 
 GetBotStatus() {
