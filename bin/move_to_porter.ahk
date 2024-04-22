@@ -28,6 +28,5 @@ while IN_LOBBY_PORTER == FALSE {
         coords := StrSplit(last_line, ",")
         MoveToPorter(coords.1, coords.2, coords.3)
 }
-MsgBox %LOBBY_NUMBER%
 ChangeLobby(LOBBY_NUMBER)
 ExitApp
