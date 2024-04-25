@@ -10,6 +10,7 @@ GLOBAL US_DEVALOKA         := 3
 GLOBAL COMMAND             := % A_Args.1
 GLOBAL VALUE               := % A_Args.2
 GLOBAL MOVE_TO_PORTER      := A_ScriptDir "\move_to_porter.ahk"
+GLOBAL MOVE_TO_COUNTER      := A_ScriptDir "\move_to_counter.ahk"
 GLOBAL AVOID_AFK_DETECTION := A_ScriptDir "\avoid_afk_detection.exe"
 
 SetKeyDelay, 1000, 100
@@ -22,19 +23,9 @@ SWITCH COMMAND {
     CASE "bot_status":
                         GetBotStatus()
     CASE "change_ship":
-                        WalkToCounterAndSelectTransport()
-                        Send {Enter}
-                        SWITCH VALUE {
-                            CASE "fodra": FODRA(US_FODRA)
-                            CASE "auldrant": AULDRANT(JP_AULDRANT)
-                            CASE "lumireis": LUMIREIS(EU_LUMIREIS)
-                            CASE "devaloka": DEVALOKA(US_DEVALOKA)
-                        }
-    CASE "change_block": 
-                        WalkToCounterAndSelectTransport()
-                        Send {Down}
-                        Send {Enter}
-                        ChangeBlock(VALUE)
+                        Run %MOVE_TO_COUNTER% %COMMAND% %VALUE%
+    CASE "change_block":
+                        Run %MOVE_TO_COUNTER% %COMMAND% %VALUE%
     CASE "change_lobby":
                         Run %MOVE_TO_PORTER% %VALUE%
 }

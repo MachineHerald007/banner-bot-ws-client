@@ -24,12 +24,7 @@ DEVALOKA(SHIP) {
     SelectShipAndBlock(SHIP, DEVALOKA_DEFAULT_BLOCK)
 }
 
-WalkToCounterAndSelectTransport() {
-    ; moves to counter
-    SendEvent {w down}
-    Sleep 5000
-    SendEvent {w up}
-
+SelectTransport() {
     ; opens counter menu
     Send {Enter}
     ; selects transport option
@@ -50,7 +45,6 @@ ChangeBlock(block) {
 }
 
 ChangeLobby(lobby_number) {
-    SetKeyDelay, 100, 100
     Send {Down %lobby_number%}
     Send {Enter}
 }

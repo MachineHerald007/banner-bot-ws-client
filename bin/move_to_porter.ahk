@@ -2,7 +2,7 @@
 #Persistent
 #SingleInstance force
 #include %A_ScriptDir%\commands.ahk
-#include %A_ScriptDir%\navigation.ahk
+#include %A_ScriptDir%\lobby_navigation.ahk
 
 GLOBAL LOBBY_NUMBER          := % A_Args.1
 
