@@ -18,7 +18,7 @@ SetKeyDelay, 1000, 100
 Process,Close,login_ephinea.exe
 Process,Close,avoid_afk_detection.exe
 
-Sleep 3000
+Sleep 5000
 SWITCH COMMAND {
     CASE "bot_status":
                         GetBotStatus()
