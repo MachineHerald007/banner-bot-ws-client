@@ -29,9 +29,7 @@ GLOBAL COUNTER_COORD         := [0, 0, 58.500]
 GLOBAL BOT_COORDS            := "C:\Users\" A_UserName "\EphineaPSO\addons\Coordinate Viewer\current_coordinates.txt"
 GLOBAL COMMAND_HANDLER       := A_ScriptDir "\command_handler.ahk"
 
-SetKeyDelay, 1000, 150
 Sleep 2000
-
 while AT_COUNTER == FALSE {
     loop, read, %BOT_COORDS%
         last_line := A_LoopReadLine 
@@ -39,6 +37,7 @@ while AT_COUNTER == FALSE {
         MoveToCounter(coords.1, coords.2, coords.3)
 }
 
+SetKeyDelay, 1000, 150
 if (COMMAND == "change_ship") {
     SelectTransport()
     Send {Enter}

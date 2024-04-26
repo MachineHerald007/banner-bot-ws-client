@@ -28,5 +28,6 @@ while IN_LOBBY_PORTER == FALSE {
         coords := StrSplit(last_line, ",")
         MoveToPorter(coords.1, coords.2, coords.3)
 }
+SetKeyDelay, 1000, 100
 ChangeLobby(LOBBY_NUMBER)
 ExitApp

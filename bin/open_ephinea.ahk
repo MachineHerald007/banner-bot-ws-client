@@ -2,9 +2,11 @@
 #Persistent
 #SingleInstance force
 
+GLOBAL SHIP              := % A_Args.1
+GLOBAL BLOCK             := % A_Args.2
 GLOBAL EPHINEA_FOLDER    := "C:\Users\" A_UserName "\EphineaPSO"
 GLOBAL PSOBB_EXE         := EPHINEA_FOLDER "\PsoBB.exe"
-GLOBAL LOGIN_EPHINEA_EXE := A_ScriptDir "\login_ephinea.exe"
+GLOBAL LOGIN_EPHINEA_EXE := A_ScriptDir "\login_ephinea.ahk"
 
 Explorer_GetSelection(hwnd="") {
     WinGet, process, processName, % "ahk_id" hwnd := hwnd? hwnd:WinExist("A")
@@ -37,5 +39,5 @@ Run, explore %EPHINEA_FOLDER%
 WinWait, EphineaPSO
     Open_Ephinea()
 WinWaitClose, EphineaPSO
-    Run %LOGIN_EPHINEA_EXE%
+    Run %LOGIN_EPHINEA_EXE% %SHIP% %BLOCK%
     ExitApp

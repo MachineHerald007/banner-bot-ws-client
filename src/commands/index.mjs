@@ -19,8 +19,14 @@ export const getBotStatus = async (payload, ws) => {
 
 //on fail, send http post request to bot-worker
 export const enableBot = async (payload, ws) => {
-    console.log("PAYLOAD: ", payload)
-    const child = spawn("cmd.exe", ["/c", ".\\bin\\open_ephinea.exe"])
+    console.log("PAYLOAD[enable_bot]: ", payload)
+    let arg2 = ".\\bin\\open_ephinea.exe "
+
+    payload.value.forEach(option => {
+        arg2 += option.value + " "
+    })
+
+    const child = spawn("cmd.exe", ["/c", arg2])
 
     child.stdout.on("data", function (data) {
         console.log("stdout: " + data)
@@ -54,7 +60,7 @@ export const disableBot = async (payload, ws) => {
 
 export const changeShip = async (payload, ws) => {
     console.log("PAYLOAD: ", payload)
-    const child = spawn("cmd.exe", ["/c", `.\\bin\\command_handler.exe change_ship ${payload.value}`])
+    const child = spawn("cmd.exe", ["/c", `.\\bin\\command_handler.exe change_ship ${payload.value[0].value}`])
 
     child.stdout.on("data", function (data) {
         console.log("stdout: " + data)
@@ -71,7 +77,7 @@ export const changeShip = async (payload, ws) => {
 
 export const changeBlock = async (payload, ws) => {
     console.log("PAYLOAD: ", payload)
-    const child = spawn("cmd.exe", ["/c", `.\\bin\\command_handler.exe change_block ${payload.value}`])
+    const child = spawn("cmd.exe", ["/c", `.\\bin\\command_handler.exe change_block ${payload.value[0].value}`])
 
     child.stdout.on("data", function (data) {
         console.log("stdout: " + data)

@@ -137,7 +137,7 @@ MoveToPorter(x, y, z) {
 
     SWITCH POS_TYPE {
         CASE "r_spawn":
-                        if (PORTER_DISTANCE > 215) {
+                        if (PORTER_DISTANCE > 208) {
                             UP_AND_LEFT(x, y, z)
                         } else if (x > 3) {
                             UP(x, y, z)
@@ -147,7 +147,7 @@ MoveToPorter(x, y, z) {
                             PositionCamera()
                         }
         CASE "l_spawn":
-                        if (PORTER_DISTANCE > 215) {
+                        if (PORTER_DISTANCE > 208) {
                             UP_AND_RIGHT(x, y, z)
                         } else if (x < -6) {
                             UP(x, y, z)
